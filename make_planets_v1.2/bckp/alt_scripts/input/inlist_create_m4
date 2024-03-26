@@ -1,0 +1,105 @@
+! Create a planet of a specified mass.
+
+&star_job
+
+   mesa_dir = ''
+
+   show_log_description_at_start = .false.
+
+   save_model_when_terminate = .true.
+   save_model_filename = 'planet_1_create.mod'
+   required_termination_code_string = 'max_age'
+
+   ! New adiabatic, contracting initial model.
+   create_initial_model = .true.
+
+   ! Radius.
+   ! radius_in_cm_for_create_initial_model = 1.4298400d10 ! Two Jupiter radii [cm].
+   radius_in_cm_for_create_initial_model = 2.8596800d10 ! Four Jupiter radii [cm].
+
+   ! Mass.
+   ! mass_in_gm_for_create_initial_model = 0.237265575d30 ! 1/8 MJ.
+   ! mass_in_gm_for_create_initial_model = 0.47453115d30 ! 1/4 MJ.
+   ! mass_in_gm_for_create_initial_model = 0.9490623d30 ! 1/2 MJ.
+   ! mass_in_gm_for_create_initial_model = 1.8981246d30 ! 1 MJ.
+   ! mass_in_gm_for_create_initial_model = 3.7962492d30 ! 2 MJ.
+   mass_in_gm_for_create_initial_model = 7.5924984d30 ! 4 MJ.
+   ! mass_in_gm_for_create_initial_model = 15.1849968d30 ! 8 MJ.
+
+   ! mass_in_gm_for_create_initial_model = 1.8384029d30 ! Approx. 1 Jupiter mass [g].
+   ! mass_in_gm_for_create_initial_model = 3.6768058d30 ! Approx. 2 Jupiter mass [g].
+   ! mass_in_gm_for_create_initial_model = 7.3536116d30 ! Approx. 4 Jupiter mass [g].
+   ! mass_in_gm_for_create_initial_model = 14.7072232d30 ! Approx. 8 Jupiter mass [g].
+
+   initial_model_relax_num_steps = 0
+
+   set_initial_age = .true.
+   initial_age = 0d0 ! In years.
+
+   ! pgstar_flag = .true.
+
+   ! Specify custom history file columns.
+   history_columns_file = 'history_columns_custom.list'
+
+/ ! End of star_job namelist.
+
+&eos
+
+/ ! End of eos namelist.
+
+&kap
+
+   Zbase = 0.02d0
+
+   kap_file_prefix = 'gs98'
+   kap_lowT_prefix = 'lowT_Freedman11'
+
+/ ! End of kap namelist.
+
+&controls
+
+   use_gold2_tolerances = .false. ! Wait a few steps.
+   steps_before_use_gold2_tolerances = 31
+
+   warning_limit_for_max_residual = 1d99 ! Off until evolve.
+   warn_when_large_virial_thm_rel_err = 1d99 ! Off until evolve.
+
+   limit_for_rel_error_in_energy_conservation = 1d-5
+   hard_limit_for_rel_error_in_energy_conservation = 1d-3
+
+   convergence_ignore_equL_residuals = .true.
+
+   ! Limit max_model_number as part of test_suite.
+   max_model_number = 200
+
+   ! For create_initial_model.
+   initial_Z = 0.02d0
+   initial_Y = 0.24d0
+
+   ! When to stop.
+   max_age = 50
+
+   ! Knobs.
+   T_mix_limit = 0d0
+
+   max_resid_jump_limit = 1d18
+   max_corr_jump_limit = 1d18
+
+   ! Output to files and terminal.
+   max_num_profile_models = 1000
+   photo_interval = 50
+   profile_interval = 50
+   history_interval = 1
+   terminal_interval = 10
+   write_header_frequency = 10
+
+/ ! End of controls namelist.
+
+&pgstar
+
+   ! Top level controls.
+
+   ! pause = .true.
+   ! If true, the code waits for user to enter RETURN on the command line.
+
+/ ! End of pgstar namelist.

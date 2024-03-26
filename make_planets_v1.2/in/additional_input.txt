@@ -1,0 +1,2 @@
+# Length scale, length_scale_input (in units of radius_p).
+1d-3

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# This provides the definition of do_one (to run one part of test).
+# do_one [inlist] [output model] [LOGS directory]
+# Note that you can specify the output LOGS directory separately.
+
+source "${MESA_DIR}/star/test_suite/test_suite_helpers"
+
+date "+DATE: %Y-%m-%d%nTIME: %H:%M:%S"
+
+echo 'Cleaning previous output files...'
+rm -f LOGS/*
+
+do_one inlist_create_header planet_1_create.mod
+do_one inlist_core_header planet_2_core.mod
+do_one inlist_evolve_header planet_3_evolve.mod
+
+date "+DATE: %Y-%m-%d%nTIME: %H:%M:%S"
+
+echo 'Finished...'
+
