@@ -1,26 +1,4 @@
-# Make Planets Notes
-
-# ----------------------------------------------------------------------
-# To run the code use the python script, and answer the prompt:
-python3 python_run.py
-
-# The mass index is imax. Currently, it set to:
-imax = 4
-mp = math.pow(2.0, 3.0 * (i - 1) / (imax - 1))
-# This produces the sequence 1, 2, 4 and 8.
-
-# The temperature index is jmax.
-jmax = 5
-Teq = 0.0 + (2000.0 - 0.0) * (j - 1) / (jmax - 1)
-# This produces 0, 500, 1000, 1500 and 2000.
-
-# The length scale for Ohmic heating is read from an external file:
-# in/additional_input.txt
-# (Change the values between 0.1 and 0.001.)
-# (For example, set it to 10^x, where x is -1, -3/2, -2, -5/2 and -3.)
-# ----------------------------------------------------------------------
-
-# Further notes.
+# Make Planets v2.2 Notes
 
 # Python scripts.
 - Main script for sequential runs: python_run.py

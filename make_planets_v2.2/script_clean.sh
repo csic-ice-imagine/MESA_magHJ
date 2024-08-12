@@ -6,10 +6,11 @@
 echo "Cleaning up the mess..."
 
 rm -f inlist_*MJ*
-rm -f logfile
+rm -f logfile.txt
 rm -f LOGS/*
 rm -rf LOGS_*
 rm -rf .mesa_temp_cache
+rm -f models.txt
 rm -rf out
 rm -f photos/*
 rm -f planet_*

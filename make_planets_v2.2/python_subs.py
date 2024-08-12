@@ -3,6 +3,7 @@ import numpy as np
 import os
 import shutil
 import time
+import sys as s
 
 #---------------------------------------------------------------------------
 # Subroutines needed by the main python_run.py script.
@@ -10,11 +11,9 @@ import time
 
 # Constants.
 msun = 1.9884099e33
-rsun = 6.9598e10
 mjup = 1.8981246e30
 rjup = 7.1492e9
 mearth = 5.9721679e27
-au = 1.496e13
 
 #---------------------------------------------------------------------------
 # Create the initial planet without the core.
@@ -84,14 +83,14 @@ def put_core_in_planet(mcore,rhocore,inlist2,createmodel,coremodel):
     return run_time
 
 #---------------------------------------------------------------------------
-# Evolve to the desired starting age.
+# Evolve the planet.
 #---------------------------------------------------------------------------
-def evolve_planet(irrad_col,flux_dayside,maxage,inlist3,coremodel,evolvemodel):
+def evolve_planet(irrad_col, flux_dayside, maxage, inlist3, coremodel, evolvemodel, J0, pcmin, pcmax, s0, ohm_on, ohm_full, ak):
     start_time = time.time()
 
     print()
     print("Evolve planet...")
-
+	
     # Read and write inlist.
     f = open('inlist_evolve','r')
     g = f.read()
@@ -108,8 +107,24 @@ def evolve_planet(irrad_col,flux_dayside,maxage,inlist3,coremodel,evolvemodel):
     h.close()
     shutil.copyfile(inlist3,"inlist")
 
+    # Read and write additional input.
+    fadd = open('in/input_ohmic_template.txt','r')
+    gadd = fadd.read()
+    fadd.close()
+
+    gadd = gadd.replace('<<J0>>',str(J0))
+    gadd = gadd.replace('<<pcmin>>',str(pcmin))
+    gadd = gadd.replace('<<pcmax>>',str(pcmax))
+    gadd = gadd.replace('<<s0>>',str(s0))
+    gadd = gadd.replace('<<age_ohm_on>>',str(ohm_on))
+    gadd = gadd.replace('<<age_ohm_full>>',str(ohm_full))
+    gadd = gadd.replace('<<ak>>',str(ak))
+
+    hadd = open('in/input_ohmic.txt','w')
+    hadd.write(gadd)
+    hadd.close()#;print("in evolve_planet line 126"); s.exit(1)
+
     # Run.
-    # print("*** Evolve: Uncomment the execution!")
     os.system('./star')
 
     run_time = time.time() - start_time
@@ -117,22 +132,20 @@ def evolve_planet(irrad_col,flux_dayside,maxage,inlist3,coremodel,evolvemodel):
     return run_time
 
 #---------------------------------------------------------------------------
-# Print stuff.
+# Print utility.
 #---------------------------------------------------------------------------
-def print_parameters(mp,rp,mcore,rhocore,mp_wo_core,irrad_col,flux_dayside,Teq,y,z,maxage):
+def print_parameters(mass,rp,mcore,rhocore,irrad_col,flux_dayside,Teq,y,z,maxage):
     print('######################################################')
     print('Parameters:')
-    print('mp/mj =',mp)
+    print('mp/mj =',mass)
     print('rp/rj =',rp)
     print('mcore/me =',mcore)
-    print('mcore/msun =',mcore*mearth/msun)
-    print('rhocore/cgs =',rhocore)
-    print('(mp-mcore)/mj =',mp_wo_core)
-    print('irrad_col =',irrad_col)
-    print('flux_dayside/1.e9 =',flux_dayside/1.e9)
-    print('Teq =',Teq)
-    print('Z =',z)
+    print('rhocore (g cm^-3) =',rhocore)
+    print('irrad_col (cm^2 g^-1) =',irrad_col)
+    print('flux_dayside (Gerg cm^-2 s^-1) =',flux_dayside/1.e9)
+    print('Teq (K)=',Teq)
     print('Y =',y)
-    print('evolve to age/Myr =',maxage/1.e6)
+    print('Z =',z)
+    print('evolve to age/Gyr =',maxage/1.e9)
     print('######################################################')
     return

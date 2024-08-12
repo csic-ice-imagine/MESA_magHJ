@@ -4,7 +4,10 @@ import math
 import os
 import shutil
 
-# Add hash signs to the beginnings of text lines (for plotting with gnuplot).
+#-------------------------------------------------------------------------------
+# Add hash signs to the beginnings of text lines in standard MESA output files.
+# (For plotting with gnuplot.)
+#-------------------------------------------------------------------------------
 
 # Define the current path.
 folder_path = os.getcwd()

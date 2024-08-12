@@ -46,7 +46,7 @@
    ! Surface heating.
    column_depth_for_irradiation = 250.0 ! In cm^2/g.
    ! The irradiation corresponds to approximately 1 Lsun at 0.05 AU.
-   irradiation_flux = 3628800000.0 ! Day side flux (in erg/cm^2/s).
+   irradiation_flux = 5813019775.477968 ! Day side flux (in erg/cm^2/s).
 
    ! Interior heating.
    ! inject_uniform_extra_heat = 0.0

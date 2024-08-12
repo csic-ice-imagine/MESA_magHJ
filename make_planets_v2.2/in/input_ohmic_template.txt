@@ -1,0 +1,15 @@
+<<J0>>
+<<pcmin>>
+<<pcmax>>
+<<s0>>
+<<age_ohm_on>>
+<<age_ohm_full>>
+<<ak>>
+
+# Amplitude of the currents [statamp cm^-2].
+# Lower boundary of pressure [bar].
+# Upper boundary of pressure [bar].
+# Width in log(p[bar]) of the tanh radial profile of Ohmic heating.
+# Age at which the Ohmic heat is turned on linearly (avoid early times)
+# Age at which the Ohmic heat reaches its full value
+# Potassium abundance
